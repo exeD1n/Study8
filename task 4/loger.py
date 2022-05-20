@@ -1,23 +1,18 @@
-def decorator(x):
-    def calc_cube(r):
-        print('Start decorator')
-        x(r)
-        print('Finish decorator')
-
-    return calc_cube
-
-
-def say(chislo):
-    if chislo < 0:
-        raise ValueError("Нельзя - ставить")
-
-    names_dict_list = dict()
-    names_dict_list.update({chislo ** 5: type(chislo ** 5)})
-    print(names_dict_list)
-
-    with open("log.txt", "w") as file:
-        file.write(str(names_dict_list))
+def val_checker(def_func):
+    def decorator(func):
+        def wrapper(*args):
+            for arg in args:
+                if not def_func(arg):
+                    raise ValueError("error")
+            res = func(*args)
+            return res
+        return wrapper
+    return decorator
 
 
-say = decorator(say)
-say(4.0)
+@val_checker(lambda x: x > 0)
+def calc_cube(x):
+    return x ** 5
+
+
+print(calc_cube(5))
