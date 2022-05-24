@@ -1,13 +1,15 @@
 import re
 
 
-def email_parse(email_address):
-    parsed = re.findall(
-        r'(^\w+)@((\w+).(\w{2,}))$', email_address)
-    if not parsed:
-        raise ValueError(f"Не соответствует почте: {email_address}")
-    return dict(zip(["username", "domain"], parsed[0]))
+def email_parse(email):
+    out_dict = {}
+    email_patern = re.compile(r'\w*@\w*\.')
+    if email_patern.match(email):
+        out_dict['username'] = email.split('@')[0]
+        out_dict['domain'] = email.split('@')[1]
+    else:
+        assert email_patern.match(email), f'ValueError({email})'
+    return print(out_dict)
 
 
-if __name__ == "__main__":
-    print(email_parse('daniillutaev1@gmail.com'))
+email_parse('daniilluytaev1@gmail.com')
