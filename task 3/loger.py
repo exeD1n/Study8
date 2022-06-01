@@ -7,9 +7,9 @@ def decorator(x):
     return calc_cube
 
 
-def say(chislo):
+def say(number):
     names_dict_list = dict()
-    names_dict_list.update({chislo ** 5: type(chislo ** 5)})
+    names_dict_list.update({number ** 5: type(number ** 5)})
     print(names_dict_list)
 
     with open("log.txt", "w") as file:
